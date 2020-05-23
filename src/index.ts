@@ -14,7 +14,7 @@ const commands: { [key: string]: Command } = {
 function printHelp(): void {
     const commandsDesc = Object.keys(commands)
         .map(c => ` - ${c}: ${commands[c].description}`)
-        .join(", ");
+        .join("\n");
     console.log(`Syntax: dpm [command] [args...]\n\nAvailable commands:\n${commandsDesc}`);
 }
 

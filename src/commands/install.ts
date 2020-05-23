@@ -23,7 +23,7 @@ export class InstallCommand implements Command {
         const startScriptPath = path.join(binPath, project.binname ?? project.name);
         const startScript = [
             "#!/bin/sh",
-            `${commandOf(project).join(" ")} ${path.join(installPath, project.main)}`
+            `${commandOf(project).join(" ")} ${path.join(installPath, project.main)} $@`
         ];
 
         if (await fs.exists(installPath)) {
