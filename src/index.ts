@@ -38,7 +38,7 @@ async function main(): Promise<void> {
         return;
     }
     const command = commands[commandName];
-    const commandArgs = flags.parse(rawArgs.slice(2));
+    const commandArgs = flags.parse(rawArgs.slice(1));
 
     try {
         await command.invoke(commandArgs, context);
