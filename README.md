@@ -11,3 +11,8 @@ Despite its name, DPM does not actually manage packages itself, this is handled 
     - adds a dependency on `https://deno.land/sqlite`
 - `dpm install`
     - installs the project globally, in case of a binary project
+
+## Running
+If you have `dpm` already installed, you can run it using `dpm run`. Otherwise, just use:
+
+`deno run --unstable --allow-read --importmap module.json src/index.ts run`
