@@ -3,9 +3,12 @@ import * as fs from 'fs/mod.ts';
 import { Command } from "./commands/command.ts";
 import { RunCommand } from "./commands/run.ts";
 import { PROJECT_JSON_PATH, DPM_HOME_PATH } from "./model/constants.ts";
+import { Project } from "./model/project.ts";
+import { InstallCommand } from "./commands/install.ts";
 
 const commands: { [key: string]: Command } = {
-    "run": new RunCommand()
+    "run": new RunCommand(),
+    "install": new InstallCommand()
 };
 
 function printHelp(): void {
@@ -20,7 +23,7 @@ async function main(): Promise<void> {
     await fs.ensureDir(DPM_HOME_PATH);
 
     // Read project metadata
-    const project = JSON.parse(await fs.readFileStr(PROJECT_JSON_PATH));
+    const project = await fs.readJson(PROJECT_JSON_PATH) as Project;
 
     // Parse CLI args
     const rawArgs = Deno.args;

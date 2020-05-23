@@ -1,5 +1,6 @@
 {
     "name": "deno-package-manager",
+    "binname": "dpm",
     "version": "0.0.1",
     "description": "Provides convenient metadata and dependency management on top of Deno",
     "author": "fwcd",

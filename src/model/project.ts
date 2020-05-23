@@ -2,6 +2,8 @@
 export interface Project {
     /** The project's name. */
     name: string;
+    /** The name of the binary. */
+    binname?: string | undefined;
     /** The project's version. */
     version?: string | undefined;
     /** The project's description. */
