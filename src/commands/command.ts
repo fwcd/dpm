@@ -1,4 +1,4 @@
-import { Args } from "flags/mod.ts";
+import { Args } from "std/flags/mod.ts";
 import { Context } from "../model/context.ts";
 
 export interface Command {

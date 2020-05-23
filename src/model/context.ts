@@ -1,5 +1,5 @@
-import * as fs from 'fs/mod.ts';
-import * as path from 'path/mod.ts';
+import * as fs from "std/fs/mod.ts";
+import * as path from "std/path/mod.ts";
 import { Project } from "./project.ts";
 
 export const PROJECT_JSON = "project.json";

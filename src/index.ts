@@ -1,16 +1,18 @@
-import * as flags from "flags/mod.ts";
+import * as flags from "std/flags/mod.ts";
 import { Command } from "./commands/command.ts";
 import { RunCommand } from "./commands/run.ts";
 import { InstallCommand } from "./commands/install.ts";
 import { Context } from "./model/context.ts";
 import { InitCommand } from "./commands/init.ts";
 import { AddCommand } from "./commands/add.ts";
+import { RemoveCommand } from "./commands/remove.ts";
 
 const commands: { [key: string]: Command } = {
     "run": new RunCommand(),
     "install": new InstallCommand(),
     "init": new InitCommand(),
-    "add": new AddCommand()
+    "add": new AddCommand(),
+    "remove": new RemoveCommand()
 };
 
 function printHelp(): void {

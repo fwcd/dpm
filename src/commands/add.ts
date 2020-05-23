@@ -1,4 +1,4 @@
-import { Args } from "flags/mod.ts";
+import { Args } from "std/flags/mod.ts";
 import { Command } from "./command.ts";
 import { Context } from "../model/context.ts";
 import { pluralize } from "../utils/strings.ts";

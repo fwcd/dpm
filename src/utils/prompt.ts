@@ -1,4 +1,4 @@
-import { readLines } from "io/bufio.ts";
+import { readLines } from "std/io/bufio.ts";
 
 export async function promptWith(p: string): Promise<string> {
     console.log(p);

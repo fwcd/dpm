@@ -12,9 +12,9 @@
         "run"
     ],
     "imports": {
-        "flags/": "https://deno.land/std@0.53.0/flags/",
-        "path/": "https://deno.land/std@0.53.0/path/",
-        "fs/": "https://deno.land/std@0.53.0/fs/",
-        "io/": "https://deno.land/std@0.53.0/io/"
+        "std/flags/": "https://deno.land/std@0.53.0/flags/",
+        "std/path/": "https://deno.land/std@0.53.0/path/",
+        "std/fs/": "https://deno.land/std@0.53.0/fs/",
+        "std/io/": "https://deno.land/std@0.53.0/io/"
     }
 }

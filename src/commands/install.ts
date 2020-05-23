@@ -1,6 +1,6 @@
-import * as fs from 'fs/mod.ts';
-import * as path from 'path/mod.ts';
-import { Args } from "flags/mod.ts";
+import * as fs from "std/fs/mod.ts";
+import * as path from "std/path/mod.ts";
+import { Args } from "std/flags/mod.ts";
 import { Command } from "./command.ts";
 import { Context } from '../model/context.ts';
 
