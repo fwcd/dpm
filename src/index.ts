@@ -1,6 +1,10 @@
-import * as flags from "https://deno.land/std@0.53.0/flags/mod.ts";
+import * as flags from "flags/mod.ts";
+import * as path from "path/mod.ts";
+import * as fs from 'fs/mod.ts';
 import { Command } from "./commands/command.ts";
 import { RunCommand } from "./commands/run.ts";
+
+const MODULE_JSON_PATH = path.join(Deno.cwd(), "module.json");
 
 const commands: { [key: string]: Command } = {
     "run": new RunCommand()
@@ -26,9 +30,19 @@ async function main(): Promise<void> {
         printHelp();
         return;
     }
-    const command = commands[commandName];
-    const commandArgs = flags.parse(rawArgs.slice(2));
-    await command.invoke(commandArgs);
+
+    try {
+        const module = await fs.readFileStr(MODULE_JSON_PATH);
+        const command = commands[commandName];
+        const commandArgs = flags.parse(rawArgs.slice(2));
+        await command.invoke(commandArgs);
+    } catch (error) {
+        if (error instanceof Deno.errors.NotFound) {
+            console.log(`${error} Perhaps a missing 'module.json'?`);
+        } else {
+            throw error;
+        }
+    }
 }
 
 await main();

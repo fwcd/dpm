@@ -1,0 +1,12 @@
+{
+    "name": "deno-package-manager",
+    "version": "0.0.1",
+    "description": "Provides convenient metadata and dependency management on top of Deno",
+    "author": "fwcd",
+    "main": "src/index.ts",
+    "imports": {
+        "flags/": "https://deno.land/std@0.53.0/flags/",
+        "path/": "https://deno.land/std@0.53.0/path/",
+        "fs/": "https://deno.land/std@0.53.0/fs/"
+    }
+}
