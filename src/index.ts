@@ -2,7 +2,7 @@ import * as flags from "flags/mod.ts";
 import * as fs from 'fs/mod.ts';
 import { Command } from "./commands/command.ts";
 import { RunCommand } from "./commands/run.ts";
-import { PROJECT_JSON_PATH } from "./model/constants.ts";
+import { PROJECT_JSON_PATH, DPM_HOME_PATH } from "./model/constants.ts";
 
 const commands: { [key: string]: Command } = {
     "run": new RunCommand()
@@ -16,23 +16,31 @@ function printHelp(): void {
 }
 
 async function main(): Promise<void> {
+    // Ensure dpm home exists
+    await fs.ensureDir(DPM_HOME_PATH);
+
+    // Read project metadata
+    const project = JSON.parse(await fs.readFileStr(PROJECT_JSON_PATH));
+
+    // Parse CLI args
     const rawArgs = Deno.args;
     const args = flags.parse(rawArgs);
     if ("help" in args || rawArgs.length < 1) {
         printHelp();
         return;
     }
+
+    // Find command
     const commandName = rawArgs[0];
     if (!(commandName in commands)) {
         console.log(`Unknown command name: ${commandName}`);
         printHelp();
         return;
     }
+    const command = commands[commandName];
+    const commandArgs = flags.parse(rawArgs.slice(2));
 
     try {
-        const project = JSON.parse(await fs.readFileStr(PROJECT_JSON_PATH));
-        const command = commands[commandName];
-        const commandArgs = flags.parse(rawArgs.slice(2));
         await command.invoke(commandArgs, project);
     } catch (error) {
         if (error instanceof Deno.errors.NotFound) {

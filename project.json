@@ -6,6 +6,8 @@
     "main": "src/index.ts",
     "permissions": [
         "read",
+        "write",
+        "env",
         "run"
     ],
     "imports": {
