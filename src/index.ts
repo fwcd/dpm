@@ -4,11 +4,13 @@ import { RunCommand } from "./commands/run.ts";
 import { InstallCommand } from "./commands/install.ts";
 import { Context } from "./model/context.ts";
 import { InitCommand } from "./commands/init.ts";
+import { AddCommand } from "./commands/add.ts";
 
 const commands: { [key: string]: Command } = {
     "run": new RunCommand(),
     "install": new InstallCommand(),
-    "init": new InitCommand()
+    "init": new InitCommand(),
+    "add": new AddCommand()
 };
 
 function printHelp(): void {

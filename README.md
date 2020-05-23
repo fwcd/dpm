@@ -7,8 +7,10 @@ Despite its name, DPM does not actually manage packages itself, this is handled 
 
 - `dpm run`
     - runs the project
-- `dpm add sqlite@v0.0.1`
-    - adds a dependency on `https://deno.land/sqlite`
+- `dpm add std/fs`
+    - adds a dependency on `https://deno.land/std/fs/mod.ts`
+- `dpm add sqlite@v0.1.0`
+    - adds a dependency on `https://deno.land/x/sqlite@v0.1.0/mod.ts`
 - `dpm install`
     - installs the project globally, in case of a binary project
 
