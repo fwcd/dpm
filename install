@@ -1,0 +1,2 @@
+#!/bin/sh
+deno run --unstable --allow-read --allow-env --allow-write --allow-run --importmap project.json src/index.ts install

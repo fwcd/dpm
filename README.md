@@ -12,7 +12,8 @@ Despite its name, DPM does not actually manage packages itself, this is handled 
 - `dpm install`
     - installs the project globally, in case of a binary project
 
-## Running
-If you have `dpm` already installed, you can run it using `dpm run`. Otherwise, just use:
+## Installation
+Use the `./install` script to install `dpm` globally. If you already have `dpm` installed, you can also use `dpm install` to update the installed version.
 
-`deno run --unstable --allow-read --allow-env --allow-write --allow-run --importmap project.json src/index.ts run`
+## Running
+Once `dpm` is installed, it can run (a newer version of) itself using `dpm run`.
