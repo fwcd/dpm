@@ -15,4 +15,4 @@ Despite its name, DPM does not actually manage packages itself, this is handled 
 ## Running
 If you have `dpm` already installed, you can run it using `dpm run`. Otherwise, just use:
 
-`deno run --unstable --allow-read --allow-run --importmap project.json src/index.ts run`
+`deno run --unstable --allow-read --allow-env --allow-write --allow-run --importmap project.json src/index.ts run`
