@@ -16,7 +16,6 @@ export class Context {
 
     public static async create(projectPath: string = Deno.cwd(), dpmHomePath: string = path.join(Deno.env.get("HOME") ?? "~", ".dpm")) {
         const ctx = new Context(projectPath, dpmHomePath);
-        await ctx.reload();
         await fs.ensureDir(ctx.dpmHomePath);
         return ctx;
     }
@@ -27,13 +26,13 @@ export class Context {
     }
 
     /** Reloads the project manifest. */
-    public async reload(): Promise<void> {
+    public async loadProject(): Promise<void> {
         this.project = await fs.readJson(this.projectJsonPath) as Project;
     }
 
     /** Saves the project manifest. */
-    public async save(): Promise<void> {
-        await fs.writeJson(this.projectJsonPath, { overwrite: true });
+    public async saveProject(): Promise<void> {
+        await fs.writeJson(this.projectJsonPath, this.project, { spaces: 4 });
     }
 
     public get projectJsonPath(): string {

@@ -3,10 +3,12 @@ import { Command } from "./commands/command.ts";
 import { RunCommand } from "./commands/run.ts";
 import { InstallCommand } from "./commands/install.ts";
 import { Context } from "./model/context.ts";
+import { InitCommand } from "./commands/init.ts";
 
 const commands: { [key: string]: Command } = {
     "run": new RunCommand(),
-    "install": new InstallCommand()
+    "install": new InstallCommand(),
+    "init": new InitCommand()
 };
 
 function printHelp(): void {

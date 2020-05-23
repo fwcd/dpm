@@ -6,6 +6,7 @@ export class RunCommand implements Command {
     public readonly description: string = "Runs the project."
 
     public async invoke(args: Args, context: Context): Promise<void> {
+        context.loadProject();
         await Deno.run({ cmd: context.projectCommand.concat([context.project.main]) }).status();
     }
 }

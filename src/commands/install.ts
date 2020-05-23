@@ -8,6 +8,8 @@ export class InstallCommand implements Command {
     public readonly description: string = "Installs the project to a global location."
 
     public async invoke(args: Args, context: Context): Promise<void> {
+        await context.loadProject();
+
         const project = context.project;
         const projectsPath = path.join(context.dpmHomePath, "projects");
         const binPath = path.join(context.dpmHomePath, "bin");
