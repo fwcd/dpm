@@ -1,10 +1,8 @@
 import * as flags from "flags/mod.ts";
-import * as fs from 'fs/mod.ts';
 import { Command } from "./commands/command.ts";
 import { RunCommand } from "./commands/run.ts";
-import { PROJECT_JSON_PATH, DPM_HOME_PATH } from "./model/constants.ts";
-import { Project } from "./model/project.ts";
 import { InstallCommand } from "./commands/install.ts";
+import { Context } from "./model/context.ts";
 
 const commands: { [key: string]: Command } = {
     "run": new RunCommand(),
@@ -19,11 +17,8 @@ function printHelp(): void {
 }
 
 async function main(): Promise<void> {
-    // Ensure dpm home exists
-    await fs.ensureDir(DPM_HOME_PATH);
-
-    // Read project metadata
-    const project = await fs.readJson(PROJECT_JSON_PATH) as Project;
+    // Setup application-wide state
+    const context = await Context.create();
 
     // Parse CLI args
     const rawArgs = Deno.args;
@@ -44,7 +39,7 @@ async function main(): Promise<void> {
     const commandArgs = flags.parse(rawArgs.slice(2));
 
     try {
-        await command.invoke(commandArgs, project);
+        await command.invoke(commandArgs, context);
     } catch (error) {
         if (error instanceof Deno.errors.NotFound) {
             console.log(`${error} Perhaps a missing 'project.json'?`);

@@ -1,6 +1,4 @@
-import { PROJECT_JSON_PATH } from "./constants.ts";
-
-/** A Deno project's metadata. */
+/** A Deno project's manifest containing metadata and dependencies. */
 export interface Project {
     /** The project's name. */
     name: string;
@@ -18,15 +16,4 @@ export interface Project {
     permissions?: string[] | undefined;
     /** The project's dependencies, serving as an import map. */
     imports?: { [alias: string]: string; } | undefined;
-}
-
-export function commandOf(project: Project): string[] {
-    let cmd = ["deno", "run", "--unstable"];
-
-    cmd.push(...(project.permissions?.map(p => `--allow-${p}`) ?? []));
-    if (project.imports) {
-        cmd.push("--importmap", PROJECT_JSON_PATH);
-    }
-
-    return cmd;
 }

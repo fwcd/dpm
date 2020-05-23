@@ -1,8 +1,8 @@
 import { Args } from "flags/mod.ts";
-import { Project } from "../model/project.ts";
+import { Context } from "../model/context.ts";
 
 export interface Command {
     readonly description: string;
 
-    invoke(args: Args, project: Project): Promise<void>;
+    invoke(args: Args, context: Context): Promise<void>;
 }
