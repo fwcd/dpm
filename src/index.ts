@@ -7,17 +7,21 @@ const commands: { [key: string]: Command } = {
 };
 
 function printHelp(): void {
-    console.log(`Syntax: dpm [command] [args...]\nAvailable commands: ${Object.keys(commands).join(", ")}`);
+    const commandsDesc = Object.keys(commands)
+        .map(c => ` - ${c}: ${commands[c].description}`)
+        .join(", ");
+    console.log(`Syntax: dpm [command] [args...]\n\nAvailable commands:\n${commandsDesc}`);
 }
 
 async function main(): Promise<void> {
     const rawArgs = Deno.args;
-    if (rawArgs.length < 1) {
+    const args = flags.parse(rawArgs);
+    if ("help" in args || rawArgs.length < 1) {
         printHelp();
         return;
     }
     const commandName = rawArgs[0];
-    if (!(commandName in Object.keys(commands))) {
+    if (!(commandName in commands)) {
         console.log(`Unknown command name: ${commandName}`);
         printHelp();
         return;
