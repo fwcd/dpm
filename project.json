@@ -4,6 +4,10 @@
     "description": "Provides convenient metadata and dependency management on top of Deno",
     "author": "fwcd",
     "main": "src/index.ts",
+    "permissions": [
+        "read",
+        "run"
+    ],
     "imports": {
         "flags/": "https://deno.land/std@0.53.0/flags/",
         "path/": "https://deno.land/std@0.53.0/path/",

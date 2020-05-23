@@ -1,10 +1,8 @@
 import * as flags from "flags/mod.ts";
-import * as path from "path/mod.ts";
 import * as fs from 'fs/mod.ts';
 import { Command } from "./commands/command.ts";
 import { RunCommand } from "./commands/run.ts";
-
-const MODULE_JSON_PATH = path.join(Deno.cwd(), "module.json");
+import { PROJECT_JSON_PATH } from "./model/constants.ts";
 
 const commands: { [key: string]: Command } = {
     "run": new RunCommand()
@@ -32,13 +30,13 @@ async function main(): Promise<void> {
     }
 
     try {
-        const module = await fs.readFileStr(MODULE_JSON_PATH);
+        const project = JSON.parse(await fs.readFileStr(PROJECT_JSON_PATH));
         const command = commands[commandName];
         const commandArgs = flags.parse(rawArgs.slice(2));
-        await command.invoke(commandArgs);
+        await command.invoke(commandArgs, project);
     } catch (error) {
         if (error instanceof Deno.errors.NotFound) {
-            console.log(`${error} Perhaps a missing 'module.json'?`);
+            console.log(`${error} Perhaps a missing 'project.json'?`);
         } else {
             throw error;
         }
