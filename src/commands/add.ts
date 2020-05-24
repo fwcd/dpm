@@ -20,7 +20,7 @@ export class AddCommand implements Command {
             if (match) {
                 const nameAndVersion = match[1];
                 const name = match[2];
-                const path = `https://deno.land/${nameAndVersion.startsWith("std") ? "" : "x/"}${nameAndVersion}/mod.ts`;
+                const path = `https://deno.land/${nameAndVersion.startsWith("std") ? "" : "x/"}${nameAndVersion}/`;
 
                 project.imports[`${name}/`] = path;
                 console.log(`Adding ${name} -> ${path}`);
