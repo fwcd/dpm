@@ -6,13 +6,15 @@ import { Context } from "./model/context.ts";
 import { InitCommand } from "./commands/init.ts";
 import { AddCommand } from "./commands/add.ts";
 import { RemoveCommand } from "./commands/remove.ts";
+import { VSCodeCommand } from "./commands/vscode.ts";
 
 const commands: { [key: string]: Command } = {
     "run": new RunCommand(),
     "install": new InstallCommand(),
     "init": new InitCommand(),
     "add": new AddCommand(),
-    "remove": new RemoveCommand()
+    "remove": new RemoveCommand(),
+    "vscode": new VSCodeCommand()
 };
 
 function printHelp(): void {
