@@ -5,6 +5,8 @@ DPM introduces a `project.json` file, which functions as an [import map](https:/
 
 Despite its name, DPM does not actually manage packages itself, this is handled by the Deno cache. It merely serves as a convenience for updating the import map and running/managing the project:
 
+- `dpm init`
+    - interactively generates a `project.json`
 - `dpm run`
     - runs the project
 - `dpm add std/fs`
