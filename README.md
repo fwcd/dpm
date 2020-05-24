@@ -13,8 +13,12 @@ Despite its name, DPM does not actually manage packages itself, this is handled 
     - adds a dependency on `https://deno.land/x/sqlite@v0.1.0/mod.ts`
 - `dpm install`
     - installs the project globally, in case of a binary project
+- `dpm vscode`
+    - configures the project for use with VSCode by linking the import map
 
 ## Installation
+First, make sure to have `deno` installed and available on your `PATH`.
+
 Use the `./install` script to install `dpm` globally. If you already have `dpm` installed, you can also use `dpm install` to update the installed version.
 
 ## Running
