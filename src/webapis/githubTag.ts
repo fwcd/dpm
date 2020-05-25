@@ -1,4 +1,4 @@
-import * as soxa from "soxa/mod.ts";
+import { soxa } from "soxa/mod.ts";
 
 export interface GitHubCommit {
     sha: string;
@@ -14,6 +14,6 @@ export interface GitHubTag {
 }
 
 export async function fetchGitHubTags(repoOwner: string, repoName: string): Promise<GitHubTag[]> {
-    const raw = await soxa.get(`https://api.github.com/repos/${repoOwner}/${repoName}/tags`);
-    return JSON.parse(raw);
+    const rsp = await soxa.get(`https://api.github.com/repos/${repoOwner}/${repoName}/tags`, { responseType: "json" });
+    return rsp.data;
 }

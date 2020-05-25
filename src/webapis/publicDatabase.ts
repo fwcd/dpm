@@ -1,4 +1,4 @@
-import * as soxa from "soxa/mod.ts";
+import { soxa } from "soxa/mod.ts";
 
 const PUBLIC_DATABASE_URL = "https://raw.githubusercontent.com/denoland/deno_website2/master/database.json";
 
@@ -12,6 +12,6 @@ export interface PublicDatabaseModule {
 export type PublicDatabase = { [name: string]: PublicDatabaseModule };
 
 export async function fetchPublicDatabase(): Promise<PublicDatabase> {
-    const raw = await soxa.get(PUBLIC_DATABASE_URL);
-    return JSON.parse(raw);
+    const rsp = await soxa.get(PUBLIC_DATABASE_URL, { responseType: "json" });
+    return rsp.data;
 }

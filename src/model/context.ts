@@ -1,6 +1,8 @@
 import * as fs from "std/fs/mod.ts";
 import * as path from "std/path/mod.ts";
 import { Project } from "./project.ts";
+import { AsyncLazy } from "../utils/lazy.ts";
+import { fetchPublicDatabase } from "../webapis/publicDatabase.ts";
 
 export const PROJECT_JSON = "project.json";
 
@@ -11,6 +13,8 @@ export const PROJECT_JSON = "project.json";
 export class Context {
     public readonly projectPath: string;
     public readonly dpmHomePath: string;
+
+    public readonly publicDatabase = new AsyncLazy(fetchPublicDatabase);
 
     public project!: Project;
 
