@@ -8,6 +8,6 @@ export class RunCommand implements Command {
     public async invoke(args: Args, context: Context): Promise<void> {
         await context.loadProject();
         const runArgs: string[] = args._.map((a: any) => `${a}`);
-        await Deno.run({ cmd: context.projectCommand.concat([context.project.main, ...runArgs]) }).status();
+        await Deno.run({ cmd: context.getProjectRunCommand().concat([...runArgs]) }).status();
     }
 }

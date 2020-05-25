@@ -31,25 +31,26 @@ export class Context {
 
     /** Reloads the project manifest. */
     public async loadProject(): Promise<void> {
-        this.project = await fs.readJson(this.projectJsonPath) as Project;
+        this.project = await fs.readJson(this.getProjectJsonPath()) as Project;
     }
 
     /** Saves the project manifest. */
     public async saveProject(): Promise<void> {
-        await fs.writeJson(this.projectJsonPath, this.project, { spaces: 4 });
+        await fs.writeJson(this.getProjectJsonPath(), this.project, { spaces: 4 });
     }
 
-    public get projectJsonPath(): string {
-        return path.join(this.projectPath, PROJECT_JSON);
+    public getProjectJsonPath(dirPath: string = this.projectPath): string {
+        return path.join(dirPath, PROJECT_JSON);
     }
 
-    public get projectCommand(): string[] {
+    public getProjectRunCommand(dirPath: string = this.projectPath): string[] {
         let cmd = ["deno", "run", "--unstable"];
 
         cmd.push(...(this.project.permissions?.map(p => `--allow-${p}`) ?? []));
         if (this.project.imports) {
-            cmd.push("--importmap", this.projectJsonPath);
+            cmd.push("--importmap", this.getProjectJsonPath(dirPath));
         }
+        cmd.push(path.join(dirPath, this.project.main));
 
         return cmd;
     }
