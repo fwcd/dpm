@@ -2,8 +2,7 @@ import { Args } from "std/flags/mod.ts";
 import { Command } from "./command.ts";
 import { Context } from "../model/context.ts";
 import { pluralize } from "../utils/strings.ts";
-import { PublicDatabase } from "../webapis/publicDatabase.ts";
-import { fetchGitHubTags } from "../webapis/githubTag.ts";
+import { findLatestVersion } from "../webapis/publicDatabase.ts";
 
 export class AddCommand implements Command {
     public readonly description: string = "Adds a list of dependencies to the project."
@@ -28,7 +27,7 @@ export class AddCommand implements Command {
             const name = pre + post;
             const isStd = name.startsWith("std");
             const scope = isStd ? "" : "x/";
-            const version = groups.ver || (isStd ? "" : await this.findLatestVersion(name, db));
+            const version = groups.ver || (isStd ? "" : await findLatestVersion(name, db));
             const versionPostfix = version ? `@${version}` : "";
             const url = groups.url || `https://deno.land/${scope}${pre}${versionPostfix}${post}/`;
 
@@ -47,17 +46,5 @@ export class AddCommand implements Command {
         console.log(`Added ${addedCount} ${pluralize("dependency", addedCount)}!`);
     }
 
-    private async findLatestVersion(name: string, db: PublicDatabase): Promise<string> {
-        if (name in db) {
-            const entry = db[name];
-            if (entry.type == "github") {
-                const tags = await fetchGitHubTags(entry.owner, entry.repo);
-                if (tags) {
-                    // Assuming GitHub tags are ordered in descending chronological order
-                    return tags[0].name;
-                }
-            }
-        }
-        return "";
-    }
+    
 }
