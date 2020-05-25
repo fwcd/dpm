@@ -1,5 +1,5 @@
 # Deno Package Manager
-Deno Package Manager is a small tool that makes it easy to manage project metadata and dependencies for a Deno project in a central place.
+Deno Package Manager is a small tool that makes it easy to manage metadata and dependencies for a Deno project in a central place.
 
 DPM introduces a `project.json` file, which functions as an [import map](https://deno.land/manual/linking_to_external_code/import_maps) and is conceptually similar to `package.json` from Node.
 
