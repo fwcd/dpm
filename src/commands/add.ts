@@ -11,6 +11,7 @@ export class AddCommand implements Command {
     public async invoke(args: Args, context: Context): Promise<void> {
         await context.loadProject();
 
+        const db = await context.publicDatabase.get();
         const project = context.project;
         if (!project.imports) {
             project.imports = {};
@@ -27,13 +28,19 @@ export class AddCommand implements Command {
             const name = pre + post;
             const isStd = name.startsWith("std");
             const scope = isStd ? "" : "x/";
-            const version = groups.ver || (isStd ? "" : await this.findLatestVersion(name, await context.publicDatabase.get()));
+            const version = groups.ver || (isStd ? "" : await this.findLatestVersion(name, db));
             const versionPostfix = version ? `@${version}` : "";
             const url = groups.url || `https://deno.land/${scope}${pre}${versionPostfix}${post}/`;
 
-            project.imports[`${name}/`] = url;
-            console.log(`Adding ${name} -> ${url}`);
-            addedCount += 1;
+            if (isStd || name in db) {
+                const ownerPostfix = (name in db) ? ` by ${db[name].owner}` : "";
+
+                console.log(`Adding ${name}${ownerPostfix} -> ${url}`);
+                project.imports[`${name}/`] = url;
+                addedCount += 1;
+            } else {
+                console.log(`${name} is not available in the standard Deno module database!`);
+            }
         }
 
         await context.saveProject();
