@@ -15,14 +15,17 @@ export class AddCommand implements Command {
         }
         
         const joinedArgs = args._.map(a => `${a}`).join(" ");
-        const pattern = /(?:(?<name>[\w-/]+)(?<ver>@.+)?)\s*(?<url>http\S+)?/g;
+        const pattern = /(?:(?<pre>[\w-/]+)(?<ver>@[\d\.]+)?(?<post>\S+)?)\s*(?<url>http\S+)?/g;
         let addedCount = 0;
         let match: RegExpExecArray | null;
         while (match = pattern.exec(joinedArgs)) {
-            const name = match.groups!.name;
-            const versionPostfix = match.groups?.ver || "";
+            const groups = match.groups!;
+            const pre = groups.pre || "";
+            const post = groups.post || "";
+            const name = pre + post;
+            const versionPostfix = groups.ver || "";
             const scope = name.startsWith("std") ? "" : "x/";
-            const url = match.groups?.url || `https://deno.land/${scope}${name}${versionPostfix}/`;
+            const url = groups.url || `https://deno.land/${scope}${pre}${versionPostfix}${post}/`;
 
             project.imports[`${name}/`] = url;
             console.log(`Adding ${name} -> ${url}`);
