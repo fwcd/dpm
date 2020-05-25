@@ -14,20 +14,19 @@ export class AddCommand implements Command {
             project.imports = {};
         }
         
+        const joinedArgs = args._.map(a => `${a}`).join(" ");
+        const pattern = /(?:(?<name>[\w-/]+)(?<ver>@.+)?)\s*(?<url>http\S+)?/g;
         let addedCount = 0;
-        for (const rawDep of args._) {
-            const match = /(([\w-/]+)(?:@.+)?)/.exec(`${rawDep}`);
-            if (match) {
-                const nameAndVersion = match[1];
-                const name = match[2];
-                const path = `https://deno.land/${nameAndVersion.startsWith("std") ? "" : "x/"}${nameAndVersion}/`;
+        let match: RegExpExecArray | null;
+        while (match = pattern.exec(joinedArgs)) {
+            const name = match.groups!.name;
+            const versionPostfix = match.groups?.ver || "";
+            const scope = name.startsWith("std") ? "" : "x/";
+            const url = match.groups?.url || `https://deno.land/${scope}${name}${versionPostfix}/`;
 
-                project.imports[`${name}/`] = path;
-                console.log(`Adding ${name} -> ${path}`);
-                addedCount += 1;
-            } else {
-                console.log(`Warning: Invalidly formatted dependency: ${rawDep}`);
-            }
+            project.imports[`${name}/`] = url;
+            console.log(`Adding ${name} -> ${url}`);
+            addedCount += 1;
         }
 
         await context.saveProject();

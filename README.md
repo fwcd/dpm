@@ -13,6 +13,8 @@ Despite its name, DPM does not actually manage packages itself, this is handled 
     - adds a dependency on `https://deno.land/std/fs/mod.ts`
 - `dpm add sqlite@v0.1.0`
     - adds a dependency on `https://deno.land/x/sqlite@v0.1.0/mod.ts`
+- `dpm add myproject https://mycustomgitrepo.org/myproject`
+    - adds a dependency on `https://mycustomgitrepo.org/myproject`
 - `dpm install`
     - installs the project globally, in case of a binary project
 - `dpm vscode`
